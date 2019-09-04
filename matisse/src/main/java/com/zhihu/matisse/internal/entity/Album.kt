@@ -5,7 +5,7 @@ import android.database.Cursor
 import android.os.Parcelable
 import android.provider.MediaStore
 import com.zhihu.matisse.R
-import com.zhihu.matisse.internal.loader.AlbumLoader
+import com.zhihu.matisse.internal.loader.COLUMN_COUNT
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -27,7 +27,7 @@ fun valueOfAlbum(cursor: Cursor): Album = Album(
         cursor.getString(cursor.getColumnIndex("bucket_id")),
         cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA)),
         cursor.getString(cursor.getColumnIndex("bucket_display_name")),
-        cursor.getLong(cursor.getColumnIndex(AlbumLoader.COLUMN_COUNT))
+        cursor.getLong(cursor.getColumnIndex(COLUMN_COUNT))
 )
 
 @Parcelize
