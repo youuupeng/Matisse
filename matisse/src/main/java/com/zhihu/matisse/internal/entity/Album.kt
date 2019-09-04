@@ -23,7 +23,7 @@ const val ALBUM_NAME_ALL = "All"
  * Constructs a new {@link Album} entity from the {@link Cursor}.
  * This method is not responsible for managing cursor resource, such as close, iterate, and so on.
  */
-fun valueOf(cursor: Cursor): Album = Album(
+fun valueOfAlbum(cursor: Cursor): Album = Album(
         cursor.getString(cursor.getColumnIndex("bucket_id")),
         cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA)),
         cursor.getString(cursor.getColumnIndex("bucket_display_name")),

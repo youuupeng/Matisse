@@ -63,7 +63,7 @@ public class AlbumsAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        Album album = AlbumKt.valueOf(cursor);
+        Album album = AlbumKt.valueOfAlbum(cursor);
         ((TextView) view.findViewById(R.id.album_name)).setText(album.getDisplayName(context));
         ((TextView) view.findViewById(R.id.album_media_count)).setText(String.valueOf(album.getCount()));
 

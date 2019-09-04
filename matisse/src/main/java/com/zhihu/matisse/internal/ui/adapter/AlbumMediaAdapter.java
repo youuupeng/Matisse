@@ -20,19 +20,21 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.zhihu.matisse.R;
 import com.zhihu.matisse.internal.entity.Album;
 import com.zhihu.matisse.internal.entity.IncapableCause;
 import com.zhihu.matisse.internal.entity.IncapableCauseKt;
 import com.zhihu.matisse.internal.entity.Item;
+import com.zhihu.matisse.internal.entity.ItemKt;
 import com.zhihu.matisse.internal.entity.SelectionSpec;
 import com.zhihu.matisse.internal.model.SelectedItemCollection;
 import com.zhihu.matisse.internal.ui.widget.CheckView;
@@ -113,7 +115,7 @@ public class AlbumMediaAdapter extends
         } else if (holder instanceof MediaViewHolder) {
             MediaViewHolder mediaViewHolder = (MediaViewHolder) holder;
 
-            final Item item = Item.valueOf(cursor);
+            final Item item = ItemKt.valueOfItem(cursor);
             mediaViewHolder.mMediaGrid.preBindMedia(new MediaGrid.PreBindInfo(
                     getImageResize(mediaViewHolder.mMediaGrid.getContext()),
                     mPlaceholder,
@@ -200,7 +202,7 @@ public class AlbumMediaAdapter extends
 
     @Override
     public int getItemViewType(int position, Cursor cursor) {
-        return Item.valueOf(cursor).isCapture() ? VIEW_TYPE_CAPTURE : VIEW_TYPE_MEDIA;
+        return ItemKt.valueOfItem(cursor).isCapture() ? VIEW_TYPE_CAPTURE : VIEW_TYPE_MEDIA;
     }
 
     private boolean assertAddSelection(Context context, Item item) {
@@ -238,7 +240,7 @@ public class AlbumMediaAdapter extends
             RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForAdapterPosition(first);
             if (holder instanceof MediaViewHolder) {
                 if (cursor.moveToPosition(i)) {
-                    setCheckStatus(Item.valueOf(cursor), ((MediaViewHolder) holder).mMediaGrid);
+                    setCheckStatus(ItemKt.valueOfItem(cursor), ((MediaViewHolder) holder).mMediaGrid);
                 }
             }
         }

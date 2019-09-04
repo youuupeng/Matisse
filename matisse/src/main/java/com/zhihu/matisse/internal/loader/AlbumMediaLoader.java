@@ -26,7 +26,7 @@ import android.provider.MediaStore;
 import androidx.loader.content.CursorLoader;
 
 import com.zhihu.matisse.internal.entity.Album;
-import com.zhihu.matisse.internal.entity.Item;
+import com.zhihu.matisse.internal.entity.ItemKt;
 import com.zhihu.matisse.internal.entity.SelectionSpec;
 import com.zhihu.matisse.internal.utils.MediaStoreCompat;
 
@@ -176,7 +176,7 @@ public class AlbumMediaLoader extends CursorLoader {
             return result;
         }
         MatrixCursor dummy = new MatrixCursor(PROJECTION);
-        dummy.addRow(new Object[]{Item.ITEM_ID_CAPTURE, Item.ITEM_DISPLAY_NAME_CAPTURE, "", 0, 0});
+        dummy.addRow(new Object[]{ItemKt.ITEM_ID_CAPTURE, ItemKt.ITEM_DISPLAY_NAME_CAPTURE, "", 0, 0});
         return new MergeCursor(new Cursor[]{dummy, result});
     }
 

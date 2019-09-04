@@ -19,15 +19,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.ViewPager;
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import androidx.viewpager.widget.ViewPager;
 
 import com.zhihu.matisse.R;
 import com.zhihu.matisse.internal.entity.IncapableCause;
@@ -319,7 +320,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         for (int i = 0; i < selectedCount; i++) {
             Item item = mSelectedCollection.asList().get(i);
             if (item.isImage()) {
-                float size = PhotoMetadataUtils.getSizeInMB(item.size);
+                float size = PhotoMetadataUtils.getSizeInMB(item.getSize());
                 if (size > mSpec.originalMaxSize) {
                     count++;
                 }
@@ -331,7 +332,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
     protected void updateSize(Item item) {
         if (item.isGif()) {
             mSize.setVisibility(View.VISIBLE);
-            mSize.setText(PhotoMetadataUtils.getSizeInMB(item.size) + "M");
+            mSize.setText(PhotoMetadataUtils.getSizeInMB(item.getSize()) + "M");
         } else {
             mSize.setVisibility(View.GONE);
         }

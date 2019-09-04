@@ -203,8 +203,8 @@ public class MatisseActivity extends AppCompatActivity implements
                 ArrayList<String> selectedPaths = new ArrayList<>();
                 if (selected != null) {
                     for (Item item : selected) {
-                        selectedUris.add(item.getContentUri());
-                        selectedPaths.add(PathUtils.getPath(this, item.getContentUri()));
+                        selectedUris.add(item.getUri());
+                        selectedPaths.add(PathUtils.getPath(this, item.getUri()));
                     }
                 }
                 result.putParcelableArrayListExtra(EXTRA_RESULT_SELECTION, selectedUris);
@@ -293,7 +293,7 @@ public class MatisseActivity extends AppCompatActivity implements
             Item item = mSelectedCollection.asList().get(i);
 
             if (item.isImage()) {
-                float size = PhotoMetadataUtils.getSizeInMB(item.size);
+                float size = PhotoMetadataUtils.getSizeInMB(item.getSize());
                 if (size > mSpec.originalMaxSize) {
                     count++;
                 }
@@ -341,7 +341,7 @@ public class MatisseActivity extends AppCompatActivity implements
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         mAlbumCollection.setStateCurrentSelection(position);
         mAlbumsAdapter.getCursor().moveToPosition(position);
-        Album album = AlbumKt.valueOf(mAlbumsAdapter.getCursor());
+        Album album = AlbumKt.valueOfAlbum(mAlbumsAdapter.getCursor());
         if (album.isAll() && SelectionSpec.getInstance().capture) {
             album.addCaptureCount();
         }
@@ -365,7 +365,7 @@ public class MatisseActivity extends AppCompatActivity implements
                 cursor.moveToPosition(mAlbumCollection.getCurrentSelection());
                 mAlbumsSpinner.setSelection(MatisseActivity.this,
                         mAlbumCollection.getCurrentSelection());
-                Album album = AlbumKt.valueOf(cursor);
+                Album album = AlbumKt.valueOfAlbum(cursor);
                 if (album.isAll() && SelectionSpec.getInstance().capture) {
                     album.addCaptureCount();
                 }

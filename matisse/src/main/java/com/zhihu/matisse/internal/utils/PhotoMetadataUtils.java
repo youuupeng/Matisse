@@ -147,7 +147,7 @@ public final class PhotoMetadataUtils {
 
         ContentResolver resolver = context.getContentResolver();
         for (MimeType type : SelectionSpec.getInstance().mimeTypeSet) {
-            if (type.checkType(resolver, item.getContentUri())) {
+            if (type.checkType(resolver, item.getUri())) {
                 return true;
             }
         }

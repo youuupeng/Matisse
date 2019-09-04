@@ -21,7 +21,6 @@ import android.graphics.Point;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.IncapableCause;
-import com.zhihu.matisse.internal.entity.IncapableCauseKt;
 import com.zhihu.matisse.internal.entity.Item;
 import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 
@@ -52,8 +51,8 @@ class GifSizeFilter extends Filter {
         if (!needFiltering(context, item))
             return null;
 
-        Point size = PhotoMetadataUtils.getBitmapBound(context.getContentResolver(), item.getContentUri());
-        if (size.x < mMinWidth || size.y < mMinHeight || item.size > mMaxSize) {
+        Point size = PhotoMetadataUtils.getBitmapBound(context.getContentResolver(), item.getUri());
+        if (size.x < mMinWidth || size.y < mMinHeight || item.getSize() > mMaxSize) {
             return new IncapableCause(IncapableCause.Form.DIALOG, context.getString(R.string.error_gif, mMinWidth,
                     String.valueOf(PhotoMetadataUtils.getSizeInMB(mMaxSize))));
         }
