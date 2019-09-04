@@ -203,15 +203,15 @@ public class SelectedItemCollection {
 
     // depends
     private int currentMaxSelectable() {
-        SelectionSpec spec = SelectionSpec.Companion.getInstance();
-        if (spec.getMaxSelectable() > 0) {
-            return spec.getMaxSelectable();
+        SelectionSpec spec = SelectionSpec.getInstance();
+        if (spec.maxSelectable > 0) {
+            return spec.maxSelectable;
         } else if (mCollectionType == COLLECTION_IMAGE) {
-            return spec.getMaxImageSelectable();
+            return spec.maxImageSelectable;
         } else if (mCollectionType == COLLECTION_VIDEO) {
-            return spec.getMaxVideoSelectable();
+            return spec.maxVideoSelectable;
         } else {
-            return spec.getMaxSelectable();
+            return spec.maxSelectable;
         }
     }
 
@@ -240,7 +240,7 @@ public class SelectedItemCollection {
      * while {@link SelectionSpec#mediaTypeExclusive} is set to false.
      */
     public boolean typeConflict(Item item) {
-        return SelectionSpec.Companion.getInstance().getMediaTypeExclusive()
+        return SelectionSpec.getInstance().mediaTypeExclusive
                 && ((item.isImage() && (mCollectionType == COLLECTION_VIDEO || mCollectionType == COLLECTION_MIXED))
                 || (item.isVideo() && (mCollectionType == COLLECTION_IMAGE || mCollectionType == COLLECTION_MIXED)));
     }

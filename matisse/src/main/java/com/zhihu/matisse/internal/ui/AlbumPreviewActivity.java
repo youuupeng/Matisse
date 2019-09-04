@@ -43,7 +43,7 @@ public class AlbumPreviewActivity extends BasePreviewActivity implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!SelectionSpec.Companion.getInstance().getHasInited()) {
+        if (!SelectionSpec.getInstance().hasInited) {
             setResult(RESULT_CANCELED);
             finish();
             return;
@@ -53,7 +53,7 @@ public class AlbumPreviewActivity extends BasePreviewActivity implements
         mCollection.load(album);
 
         Item item = getIntent().getParcelableExtra(EXTRA_ITEM);
-        if (mSpec.getCountable()) {
+        if (mSpec.countable) {
             mCheckView.setCheckedNum(mSelectedCollection.checkedNumOf(item));
         } else {
             mCheckView.setChecked(mSelectedCollection.isSelected(item));
