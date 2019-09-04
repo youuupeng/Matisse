@@ -42,7 +42,7 @@ public class MediaStoreCompat {
 
     private final WeakReference<Activity> mContext;
     private final WeakReference<Fragment> mFragment;
-    private       CaptureStrategy         mCaptureStrategy;
+    private CaptureStrategy mCaptureStrategy;
     private       Uri                     mCurrentPhotoUri;
     private       String                  mCurrentPhotoPath;
 
@@ -84,7 +84,7 @@ public class MediaStoreCompat {
             if (photoFile != null) {
                 mCurrentPhotoPath = photoFile.getAbsolutePath();
                 mCurrentPhotoUri = FileProvider.getUriForFile(mContext.get(),
-                        mCaptureStrategy.authority, photoFile);
+                        mCaptureStrategy.getAuthority(), photoFile);
                 captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mCurrentPhotoUri);
                 captureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -112,15 +112,15 @@ public class MediaStoreCompat {
                 new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = String.format("JPEG_%s.jpg", timeStamp);
         File storageDir;
-        if (mCaptureStrategy.isPublic) {
+        if (mCaptureStrategy.isPublic()) {
             storageDir = Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_PICTURES);
             if (!storageDir.exists()) storageDir.mkdirs();
         } else {
             storageDir = mContext.get().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         }
-        if (mCaptureStrategy.directory != null) {
-            storageDir = new File(storageDir, mCaptureStrategy.directory);
+        if (mCaptureStrategy.getDirectory() != null) {
+            storageDir = new File(storageDir, mCaptureStrategy.getDirectory());
             if (!storageDir.exists()) storageDir.mkdirs();
         }
 

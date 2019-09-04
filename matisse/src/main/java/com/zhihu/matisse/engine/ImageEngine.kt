@@ -1,32 +1,20 @@
-/*
- * Copyright 2017 Zhihu Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package com.zhihu.matisse.engine;
+package com.zhihu.matisse.engine
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.widget.ImageView;
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.widget.ImageView
 
 /**
- * Image loader interface. There are predefined {@link com.zhihu.matisse.engine.impl.GlideEngine}
- * and {@link com.zhihu.matisse.engine.impl.PicassoEngine}.
+ * Description
+ * <p>
+ *     Image loader interface. There are predefined {@link com.zhihu.matisse.engine.impl.GlideEngine}
+ *     and {@link com.zhihu.matisse.engine.impl.PicassoEngine}.
+ *
+ * @author peyo
+ * @date 9/4/2019
  */
-@SuppressWarnings("unused")
-public interface ImageEngine {
-
+interface ImageEngine {
     /**
      * Load thumbnail of a static image resource.
      *
@@ -36,7 +24,7 @@ public interface ImageEngine {
      * @param imageView   ImageView widget
      * @param uri         Uri of the loaded image
      */
-    void loadThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView, Uri uri);
+    fun loadThumbnail(context: Context, resize: Int, placeholder: Drawable?, imageView: ImageView, uri: Uri)
 
     /**
      * Load thumbnail of a gif image resource. You don't have to load an animated gif when it's only
@@ -48,7 +36,7 @@ public interface ImageEngine {
      * @param imageView   ImageView widget
      * @param uri         Uri of the loaded image
      */
-    void loadGifThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView, Uri uri);
+    fun loadGifThumbnail(context: Context, resize: Int, placeholder: Drawable?, imageView: ImageView, uri: Uri)
 
     /**
      * Load a static image resource.
@@ -59,7 +47,7 @@ public interface ImageEngine {
      * @param imageView ImageView widget
      * @param uri       Uri of the loaded image
      */
-    void loadImage(Context context, int resizeX, int resizeY, ImageView imageView, Uri uri);
+    fun loadImage(context: Context, resizeX: Int, resizeY: Int, imageView: ImageView, uri: Uri)
 
     /**
      * Load a gif image resource.
@@ -70,7 +58,7 @@ public interface ImageEngine {
      * @param imageView ImageView widget
      * @param uri       Uri of the loaded image
      */
-    void loadGifImage(Context context, int resizeX, int resizeY, ImageView imageView, Uri uri);
+    fun loadGifImage(context: Context, resizeX: Int, resizeY: Int, imageView: ImageView, uri: Uri)
 
     /**
      * Whether this implementation supports animated gif.
@@ -78,5 +66,5 @@ public interface ImageEngine {
      *
      * @return true support animated gif, false do not support animated gif.
      */
-    boolean supportAnimatedGif();
+    fun supportAnimatedGif(): Boolean
 }

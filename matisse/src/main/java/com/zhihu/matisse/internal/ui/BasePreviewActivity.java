@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import com.zhihu.matisse.R;
 import com.zhihu.matisse.internal.entity.IncapableCause;
+import com.zhihu.matisse.internal.entity.IncapableCauseKt;
 import com.zhihu.matisse.internal.entity.Item;
 import com.zhihu.matisse.internal.entity.SelectionSpec;
 import com.zhihu.matisse.internal.model.SelectedItemCollection;
@@ -352,7 +353,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
     private boolean assertAddSelection(Item item) {
         IncapableCause cause = mSelectedCollection.isAcceptable(item);
-        IncapableCause.handleCause(this, cause);
+        IncapableCauseKt.handleCause(this, cause);
         return cause == null;
     }
 }

@@ -30,9 +30,10 @@ import android.widget.TextView;
 
 import com.zhihu.matisse.R;
 import com.zhihu.matisse.internal.entity.Album;
+import com.zhihu.matisse.internal.entity.IncapableCause;
+import com.zhihu.matisse.internal.entity.IncapableCauseKt;
 import com.zhihu.matisse.internal.entity.Item;
 import com.zhihu.matisse.internal.entity.SelectionSpec;
-import com.zhihu.matisse.internal.entity.IncapableCause;
 import com.zhihu.matisse.internal.model.SelectedItemCollection;
 import com.zhihu.matisse.internal.ui.widget.CheckView;
 import com.zhihu.matisse.internal.ui.widget.MediaGrid;
@@ -204,7 +205,7 @@ public class AlbumMediaAdapter extends
 
     private boolean assertAddSelection(Context context, Item item) {
         IncapableCause cause = mSelectedCollection.isAcceptable(item);
-        IncapableCause.handleCause(context, cause);
+        IncapableCauseKt.handleCause(context, cause);
         return cause == null;
     }
 
