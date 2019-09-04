@@ -339,7 +339,7 @@ public class MatisseActivity extends AppCompatActivity implements
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        mAlbumCollection.setStateCurrentSelection(position);
+        mAlbumCollection.setMCurrentSelection(position);
         mAlbumsAdapter.getCursor().moveToPosition(position);
         Album album = AlbumKt.valueOfAlbum(mAlbumsAdapter.getCursor());
         if (album.isAll() && SelectionSpec.Companion.getInstance().getCapture()) {
@@ -362,9 +362,9 @@ public class MatisseActivity extends AppCompatActivity implements
 
             @Override
             public void run() {
-                cursor.moveToPosition(mAlbumCollection.getCurrentSelection());
+                cursor.moveToPosition(mAlbumCollection.getMCurrentSelection());
                 mAlbumsSpinner.setSelection(MatisseActivity.this,
-                        mAlbumCollection.getCurrentSelection());
+                        mAlbumCollection.getMCurrentSelection());
                 Album album = AlbumKt.valueOfAlbum(cursor);
                 if (album.isAll() && SelectionSpec.Companion.getInstance().getCapture()) {
                     album.addCaptureCount();

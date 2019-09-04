@@ -105,7 +105,7 @@ private fun getSelectionAlbumArgsForGifType(mediaType: Int, albumId: String): Ar
 
 private const val ORDER_BY = MediaStore.Images.Media.DATE_TAKEN + " DESC"
 
-
+//kotlin out?
 class AlbumMediaLoader(context: Context, selection: String?, selectionArgs: Array<out String>?, private val capture: Boolean) : CursorLoader(context, QUERY_URI, PROJECTION, selection, selectionArgs, ORDER_BY)  {
 
     companion object {
