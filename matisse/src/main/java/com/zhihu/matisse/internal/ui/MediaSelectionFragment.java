@@ -99,11 +99,11 @@ public class MediaSelectionFragment extends Fragment implements
         mRecyclerView.setHasFixedSize(true);
 
         int spanCount;
-        SelectionSpec selectionSpec = SelectionSpec.getInstance();
-        if (selectionSpec.gridExpectedSize > 0) {
-            spanCount = UIUtils.spanCount(getContext(), selectionSpec.gridExpectedSize);
+        SelectionSpec selectionSpec = SelectionSpec.Companion.getInstance();
+        if (selectionSpec.getGridExpectedSize() > 0) {
+            spanCount = UIUtils.spanCount(getContext(), selectionSpec.getGridExpectedSize());
         } else {
-            spanCount = selectionSpec.spanCount;
+            spanCount = selectionSpec.getSpanCount();
         }
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), spanCount));
 
@@ -111,7 +111,7 @@ public class MediaSelectionFragment extends Fragment implements
         mRecyclerView.addItemDecoration(new MediaGridInset(spanCount, spacing, false));
         mRecyclerView.setAdapter(mAdapter);
         mAlbumMediaCollection.onCreate(getActivity(), this);
-        mAlbumMediaCollection.load(album, selectionSpec.capture);
+        mAlbumMediaCollection.load(album, selectionSpec.getCapture());
     }
 
     @Override

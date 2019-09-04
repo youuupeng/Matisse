@@ -19,6 +19,7 @@ package com.zhihu.matisse;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
+
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -95,10 +96,10 @@ public final class SelectionCreator {
      */
     SelectionCreator(Matisse matisse, @NonNull Set<MimeType> mimeTypes, boolean mediaTypeExclusive) {
         mMatisse = matisse;
-        mSelectionSpec = SelectionSpec.getCleanInstance();
-        mSelectionSpec.mimeTypeSet = mimeTypes;
-        mSelectionSpec.mediaTypeExclusive = mediaTypeExclusive;
-        mSelectionSpec.orientation = SCREEN_ORIENTATION_UNSPECIFIED;
+        mSelectionSpec = SelectionSpec.Companion.getCleanInstance();
+        mSelectionSpec.setMimeTypeSet(mimeTypes);
+        mSelectionSpec.setMediaTypeExclusive(mediaTypeExclusive);
+        mSelectionSpec.setOrientation(SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
     /**
@@ -110,7 +111,7 @@ public final class SelectionCreator {
      * @see SelectionSpec#onlyShowVideos()
      */
     public SelectionCreator showSingleMediaType(boolean showSingleMediaType) {
-        mSelectionSpec.showSingleMediaType = showSingleMediaType;
+        mSelectionSpec.setShowSingleMediaType(showSingleMediaType);
         return this;
     }
 
@@ -126,7 +127,7 @@ public final class SelectionCreator {
      * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator theme(@StyleRes int themeId) {
-        mSelectionSpec.themeId = themeId;
+        mSelectionSpec.setThemeId(themeId);
         return this;
     }
 
@@ -138,7 +139,7 @@ public final class SelectionCreator {
      * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator countable(boolean countable) {
-        mSelectionSpec.countable = countable;
+        mSelectionSpec.setCountable(countable);
         return this;
     }
 
@@ -151,9 +152,9 @@ public final class SelectionCreator {
     public SelectionCreator maxSelectable(int maxSelectable) {
         if (maxSelectable < 1)
             throw new IllegalArgumentException("maxSelectable must be greater than or equal to one");
-        if (mSelectionSpec.maxImageSelectable > 0 || mSelectionSpec.maxVideoSelectable > 0)
+        if (mSelectionSpec.getMaxImageSelectable() > 0 || mSelectionSpec.getMaxVideoSelectable() > 0)
             throw new IllegalStateException("already set maxImageSelectable and maxVideoSelectable");
-        mSelectionSpec.maxSelectable = maxSelectable;
+        mSelectionSpec.setMaxSelectable(maxSelectable);
         return this;
     }
 
@@ -163,14 +164,14 @@ public final class SelectionCreator {
      *
      * @param maxImageSelectable Maximum selectable count for image.
      * @param maxVideoSelectable Maximum selectable count for video.
-     * @return  {@link SelectionCreator} for fluent API.
+     * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator maxSelectablePerMediaType(int maxImageSelectable, int maxVideoSelectable) {
         if (maxImageSelectable < 1 || maxVideoSelectable < 1)
             throw new IllegalArgumentException(("max selectable must be greater than or equal to one"));
-        mSelectionSpec.maxSelectable = -1;
-        mSelectionSpec.maxImageSelectable = maxImageSelectable;
-        mSelectionSpec.maxVideoSelectable = maxVideoSelectable;
+        mSelectionSpec.setMaxSelectable(-1);
+        mSelectionSpec.setMaxImageSelectable(maxImageSelectable);
+        mSelectionSpec.setMaxVideoSelectable(maxVideoSelectable);
         return this;
     }
 
@@ -181,11 +182,11 @@ public final class SelectionCreator {
      * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator addFilter(@NonNull Filter filter) {
-        if (mSelectionSpec.filters == null) {
-            mSelectionSpec.filters = new ArrayList<>();
+        if (mSelectionSpec.getFilters() == null) {
+            mSelectionSpec.setFilters(new ArrayList<Filter>());
         }
         if (filter == null) throw new IllegalArgumentException("filter cannot be null");
-        mSelectionSpec.filters.add(filter);
+        mSelectionSpec.getFilters().add(filter);
         return this;
     }
 
@@ -198,7 +199,7 @@ public final class SelectionCreator {
      * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator capture(boolean enable) {
-        mSelectionSpec.capture = enable;
+        mSelectionSpec.setCapture(enable);
         return this;
     }
 
@@ -209,18 +210,19 @@ public final class SelectionCreator {
      * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator originalEnable(boolean enable) {
-        mSelectionSpec.originalable = enable;
+        mSelectionSpec.setOriginalable(enable);
         return this;
     }
 
 
     /**
      * Determines Whether to hide top and bottom toolbar in PreView mode ,when user tap the picture
+     *
      * @param enable
      * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator autoHideToolbarOnSingleTap(boolean enable) {
-        mSelectionSpec.autoHideToobar = enable;
+        mSelectionSpec.setAutoHideToobar(enable);
         return this;
     }
 
@@ -231,7 +233,7 @@ public final class SelectionCreator {
      * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator maxOriginalSize(int size) {
-        mSelectionSpec.originalMaxSize = size;
+        mSelectionSpec.setOriginalMaxSize(size);
         return this;
     }
 
@@ -243,7 +245,7 @@ public final class SelectionCreator {
      * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator captureStrategy(CaptureStrategy captureStrategy) {
-        mSelectionSpec.captureStrategy = captureStrategy;
+        mSelectionSpec.setCaptureStrategy(captureStrategy);
         return this;
     }
 
@@ -256,7 +258,7 @@ public final class SelectionCreator {
      * @see Activity#setRequestedOrientation(int)
      */
     public SelectionCreator restrictOrientation(@ScreenOrientation int orientation) {
-        mSelectionSpec.orientation = orientation;
+        mSelectionSpec.setOrientation(orientation);
         return this;
     }
 
@@ -270,7 +272,7 @@ public final class SelectionCreator {
      */
     public SelectionCreator spanCount(int spanCount) {
         if (spanCount < 1) throw new IllegalArgumentException("spanCount cannot be less than 1");
-        mSelectionSpec.spanCount = spanCount;
+        mSelectionSpec.setSpanCount(spanCount);
         return this;
     }
 
@@ -283,7 +285,7 @@ public final class SelectionCreator {
      * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator gridExpectedSize(int size) {
-        mSelectionSpec.gridExpectedSize = size;
+        mSelectionSpec.setGridExpectedSize(size);
         return this;
     }
 
@@ -297,7 +299,7 @@ public final class SelectionCreator {
     public SelectionCreator thumbnailScale(float scale) {
         if (scale <= 0f || scale > 1f)
             throw new IllegalArgumentException("Thumbnail scale must be between (0.0, 1.0]");
-        mSelectionSpec.thumbnailScale = scale;
+        mSelectionSpec.setThumbnailScale(scale);
         return this;
     }
 
@@ -313,7 +315,7 @@ public final class SelectionCreator {
      * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator imageEngine(ImageEngine imageEngine) {
-        mSelectionSpec.imageEngine = imageEngine;
+        mSelectionSpec.setImageEngine(imageEngine);
         return this;
     }
 
@@ -328,7 +330,7 @@ public final class SelectionCreator {
      */
     @NonNull
     public SelectionCreator setOnSelectedListener(@Nullable OnSelectedListener listener) {
-        mSelectionSpec.onSelectedListener = listener;
+        mSelectionSpec.setOnSelectedListener(listener);
         return this;
     }
 
@@ -339,7 +341,7 @@ public final class SelectionCreator {
      * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator setOnCheckedListener(@Nullable OnCheckedListener listener) {
-        mSelectionSpec.onCheckedListener = listener;
+        mSelectionSpec.setOnCheckedListener(listener);
         return this;
     }
 
