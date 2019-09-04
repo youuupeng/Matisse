@@ -48,7 +48,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 public class SampleActivity extends AppCompatActivity implements View.OnClickListener {
-
+    private static final String TAG = "SampleActivity";
     private static final int REQUEST_CODE_CHOOSE = 23;
 
     private UriAdapter mAdapter;
@@ -57,6 +57,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate: it's a start");
         findViewById(R.id.zhihu).setOnClickListener(this);
         findViewById(R.id.dracula).setOnClickListener(this);
         findViewById(R.id.only_gif).setOnClickListener(this);
