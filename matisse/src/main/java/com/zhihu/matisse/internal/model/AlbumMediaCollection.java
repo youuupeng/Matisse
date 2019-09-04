@@ -19,6 +19,7 @@ package com.zhihu.matisse.internal.model;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -50,7 +51,7 @@ public class AlbumMediaCollection implements LoaderManager.LoaderCallbacks<Curso
             return null;
         }
 
-        return AlbumMediaLoader.newInstance(context, album,
+        return AlbumMediaLoader.Companion.newInstance(context, album,
                 album.isAll() && args.getBoolean(ARGS_ENABLE_CAPTURE, false));
     }
 
