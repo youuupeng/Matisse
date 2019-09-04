@@ -26,19 +26,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
 import com.zhihu.matisse.R;
 import com.zhihu.matisse.internal.entity.Album;
+import com.zhihu.matisse.internal.entity.AlbumKt;
 import com.zhihu.matisse.internal.entity.Item;
 import com.zhihu.matisse.internal.entity.SelectionSpec;
 import com.zhihu.matisse.internal.model.AlbumCollection;
@@ -339,7 +341,7 @@ public class MatisseActivity extends AppCompatActivity implements
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         mAlbumCollection.setStateCurrentSelection(position);
         mAlbumsAdapter.getCursor().moveToPosition(position);
-        Album album = Album.valueOf(mAlbumsAdapter.getCursor());
+        Album album = AlbumKt.valueOf(mAlbumsAdapter.getCursor());
         if (album.isAll() && SelectionSpec.getInstance().capture) {
             album.addCaptureCount();
         }
@@ -363,7 +365,7 @@ public class MatisseActivity extends AppCompatActivity implements
                 cursor.moveToPosition(mAlbumCollection.getCurrentSelection());
                 mAlbumsSpinner.setSelection(MatisseActivity.this,
                         mAlbumCollection.getCurrentSelection());
-                Album album = Album.valueOf(cursor);
+                Album album = AlbumKt.valueOf(cursor);
                 if (album.isAll() && SelectionSpec.getInstance().capture) {
                     album.addCaptureCount();
                 }

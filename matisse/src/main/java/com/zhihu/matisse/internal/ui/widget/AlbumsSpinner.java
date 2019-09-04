@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.zhihu.matisse.R;
 import com.zhihu.matisse.internal.entity.Album;
+import com.zhihu.matisse.internal.entity.AlbumKt;
 import com.zhihu.matisse.internal.utils.Platform;
 
 public class AlbumsSpinner {
@@ -72,7 +73,7 @@ public class AlbumsSpinner {
         mListPopupWindow.dismiss();
         Cursor cursor = mAdapter.getCursor();
         cursor.moveToPosition(position);
-        Album album = Album.valueOf(cursor);
+        Album album = AlbumKt.valueOf(cursor);
         String displayName = album.getDisplayName(context);
         if (mSelected.getVisibility() == View.VISIBLE) {
             mSelected.setText(displayName);

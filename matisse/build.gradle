@@ -37,6 +37,10 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {

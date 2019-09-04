@@ -25,6 +25,7 @@ import android.provider.MediaStore;
 import androidx.loader.content.CursorLoader;
 
 import com.zhihu.matisse.internal.entity.Album;
+import com.zhihu.matisse.internal.entity.AlbumKt;
 import com.zhihu.matisse.internal.entity.SelectionSpec;
 
 /**
@@ -123,7 +124,7 @@ public class AlbumLoader extends CursorLoader {
                 allAlbumCoverPath = albums.getString(albums.getColumnIndex(MediaStore.MediaColumns.DATA));
             }
         }
-        allAlbum.addRow(new String[]{Album.ALBUM_ID_ALL, Album.ALBUM_ID_ALL, Album.ALBUM_NAME_ALL, allAlbumCoverPath, "",
+        allAlbum.addRow(new String[]{AlbumKt.ALBUM_ID_ALL, AlbumKt.ALBUM_ID_ALL, AlbumKt.ALBUM_NAME_ALL, allAlbumCoverPath, "",
                 String.valueOf(totalCount)});
 
         return new MergeCursor(new Cursor[]{allAlbum, albums});

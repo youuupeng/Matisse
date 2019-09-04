@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.zhihu.matisse.R;
 import com.zhihu.matisse.internal.entity.Album;
+import com.zhihu.matisse.internal.entity.AlbumKt;
 import com.zhihu.matisse.internal.entity.SelectionSpec;
 
 import java.io.File;
@@ -62,7 +63,7 @@ public class AlbumsAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        Album album = Album.valueOf(cursor);
+        Album album = AlbumKt.valueOf(cursor);
         ((TextView) view.findViewById(R.id.album_name)).setText(album.getDisplayName(context));
         ((TextView) view.findViewById(R.id.album_media_count)).setText(String.valueOf(album.getCount()));
 
