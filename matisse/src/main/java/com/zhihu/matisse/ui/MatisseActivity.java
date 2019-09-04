@@ -95,10 +95,10 @@ public class MatisseActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         // programmatically set theme before super.onCreate()
-        mSpec = SelectionSpec.getInstance();
-        setTheme(mSpec.themeId);
+        mSpec = SelectionSpec.Companion.getInstance();
+        setTheme(mSpec.getThemeId());
         super.onCreate(savedInstanceState);
-        if (!mSpec.hasInited) {
+        if (!mSpec.getHasInited()) {
             setResult(RESULT_CANCELED);
             finish();
             return;
@@ -106,14 +106,14 @@ public class MatisseActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_matisse);
 
         if (mSpec.needOrientationRestriction()) {
-            setRequestedOrientation(mSpec.orientation);
+            setRequestedOrientation(mSpec.getOrientation());
         }
 
-        if (mSpec.capture) {
+        if (mSpec.getCapture()) {
             mMediaStoreCompat = new MediaStoreCompat(this);
-            if (mSpec.captureStrategy == null)
+            if (mSpec.getCaptureStrategy() == null)
                 throw new RuntimeException("Don't forget to set CaptureStrategy.");
-            mMediaStoreCompat.setCaptureStrategy(mSpec.captureStrategy);
+            mMediaStoreCompat.setCaptureStrategy(mSpec.getCaptureStrategy());
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -166,8 +166,8 @@ public class MatisseActivity extends AppCompatActivity implements
     protected void onDestroy() {
         super.onDestroy();
         mAlbumCollection.onDestroy();
-        mSpec.onCheckedListener = null;
-        mSpec.onSelectedListener = null;
+        mSpec.setOnCheckedListener(null);
+        mSpec.setOnSelectedListener(null);
     }
 
     @Override
@@ -258,7 +258,7 @@ public class MatisseActivity extends AppCompatActivity implements
         }
 
 
-        if (mSpec.originalable) {
+        if (mSpec.getOriginalable()) {
             mOriginalLayout.setVisibility(View.VISIBLE);
             updateOriginalState();
         } else {
@@ -275,7 +275,7 @@ public class MatisseActivity extends AppCompatActivity implements
 
             if (mOriginalEnable) {
                 IncapableDialog incapableDialog = IncapableDialog.newInstance("",
-                        getString(R.string.error_over_original_size, mSpec.originalMaxSize));
+                        getString(R.string.error_over_original_size, mSpec.getOriginalMaxSize()));
                 incapableDialog.show(getSupportFragmentManager(),
                         IncapableDialog.class.getName());
 
@@ -294,7 +294,7 @@ public class MatisseActivity extends AppCompatActivity implements
 
             if (item.isImage()) {
                 float size = PhotoMetadataUtils.getSizeInMB(item.getSize());
-                if (size > mSpec.originalMaxSize) {
+                if (size > mSpec.getOriginalMaxSize()) {
                     count++;
                 }
             }
@@ -322,7 +322,7 @@ public class MatisseActivity extends AppCompatActivity implements
             int count = countOverMaxSize();
             if (count > 0) {
                 IncapableDialog incapableDialog = IncapableDialog.newInstance("",
-                        getString(R.string.error_over_original_count, count, mSpec.originalMaxSize));
+                        getString(R.string.error_over_original_count, count, mSpec.getOriginalMaxSize()));
                 incapableDialog.show(getSupportFragmentManager(),
                         IncapableDialog.class.getName());
                 return;
@@ -331,8 +331,8 @@ public class MatisseActivity extends AppCompatActivity implements
             mOriginalEnable = !mOriginalEnable;
             mOriginal.setChecked(mOriginalEnable);
 
-            if (mSpec.onCheckedListener != null) {
-                mSpec.onCheckedListener.onCheck(mOriginalEnable);
+            if (mSpec.getOnCheckedListener() != null) {
+                mSpec.getOnCheckedListener().onCheck(mOriginalEnable);
             }
         }
     }
@@ -342,7 +342,7 @@ public class MatisseActivity extends AppCompatActivity implements
         mAlbumCollection.setStateCurrentSelection(position);
         mAlbumsAdapter.getCursor().moveToPosition(position);
         Album album = AlbumKt.valueOfAlbum(mAlbumsAdapter.getCursor());
-        if (album.isAll() && SelectionSpec.getInstance().capture) {
+        if (album.isAll() && SelectionSpec.Companion.getInstance().getCapture()) {
             album.addCaptureCount();
         }
         onAlbumSelected(album);
@@ -366,7 +366,7 @@ public class MatisseActivity extends AppCompatActivity implements
                 mAlbumsSpinner.setSelection(MatisseActivity.this,
                         mAlbumCollection.getCurrentSelection());
                 Album album = AlbumKt.valueOfAlbum(cursor);
-                if (album.isAll() && SelectionSpec.getInstance().capture) {
+                if (album.isAll() && SelectionSpec.Companion.getInstance().getCapture()) {
                     album.addCaptureCount();
                 }
                 onAlbumSelected(album);
@@ -399,8 +399,8 @@ public class MatisseActivity extends AppCompatActivity implements
         // notify bottom toolbar that check state changed.
         updateBottomToolbar();
 
-        if (mSpec.onSelectedListener != null) {
-            mSpec.onSelectedListener.onSelected(
+        if (mSpec.getOnSelectedListener() != null) {
+            mSpec.getOnSelectedListener().onSelected(
                     mSelectedCollection.asListOfUri(), mSelectedCollection.asListOfString());
         }
     }

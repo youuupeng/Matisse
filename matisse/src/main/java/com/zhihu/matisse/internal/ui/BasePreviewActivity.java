@@ -76,9 +76,9 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setTheme(SelectionSpec.getInstance().themeId);
+        setTheme(SelectionSpec.Companion.getInstance().getThemeId());
         super.onCreate(savedInstanceState);
-        if (!SelectionSpec.getInstance().hasInited) {
+        if (!SelectionSpec.Companion.getInstance().getHasInited()) {
             setResult(RESULT_CANCELED);
             finish();
             return;
@@ -88,9 +88,9 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
-        mSpec = SelectionSpec.getInstance();
+        mSpec = SelectionSpec.Companion.getInstance();
         if (mSpec.needOrientationRestriction()) {
-            setRequestedOrientation(mSpec.orientation);
+            setRequestedOrientation(mSpec.getOrientation());
         }
 
         if (savedInstanceState == null) {
@@ -111,7 +111,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         mAdapter = new PreviewPagerAdapter(getSupportFragmentManager(), null);
         mPager.setAdapter(mAdapter);
         mCheckView = (CheckView) findViewById(R.id.check_view);
-        mCheckView.setCountable(mSpec.countable);
+        mCheckView.setCountable(mSpec.getCountable());
         mBottomToolbar = findViewById(R.id.bottom_toolbar);
         mTopToolbar = findViewById(R.id.top_toolbar);
 
@@ -122,7 +122,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                 Item item = mAdapter.getMediaItem(mPager.getCurrentItem());
                 if (mSelectedCollection.isSelected(item)) {
                     mSelectedCollection.remove(item);
-                    if (mSpec.countable) {
+                    if (mSpec.getCountable()) {
                         mCheckView.setCheckedNum(CheckView.UNCHECKED);
                     } else {
                         mCheckView.setChecked(false);
@@ -130,7 +130,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                 } else {
                     if (assertAddSelection(item)) {
                         mSelectedCollection.add(item);
-                        if (mSpec.countable) {
+                        if (mSpec.getCountable()) {
                             mCheckView.setCheckedNum(mSelectedCollection.checkedNumOf(item));
                         } else {
                             mCheckView.setChecked(true);
@@ -139,8 +139,8 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                 }
                 updateApplyButton();
 
-                if (mSpec.onSelectedListener != null) {
-                    mSpec.onSelectedListener.onSelected(
+                if (mSpec.getOnSelectedListener() != null) {
+                    mSpec.getOnSelectedListener().onSelected(
                             mSelectedCollection.asListOfUri(), mSelectedCollection.asListOfString());
                 }
             }
@@ -156,7 +156,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                 int count = countOverMaxSize();
                 if (count > 0) {
                     IncapableDialog incapableDialog = IncapableDialog.newInstance("",
-                            getString(R.string.error_over_original_count, count, mSpec.originalMaxSize));
+                            getString(R.string.error_over_original_count, count, mSpec.getOriginalMaxSize()));
                     incapableDialog.show(getSupportFragmentManager(),
                             IncapableDialog.class.getName());
                     return;
@@ -169,8 +169,8 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                 }
 
 
-                if (mSpec.onCheckedListener != null) {
-                    mSpec.onCheckedListener.onCheck(mOriginalEnable);
+                if (mSpec.getOnCheckedListener() != null) {
+                    mSpec.getOnCheckedListener().onCheck(mOriginalEnable);
                 }
             }
         });
@@ -203,7 +203,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
     @Override
     public void onClick() {
-        if (!mSpec.autoHideToobar) {
+        if (!mSpec.getAutoHideToobar()) {
             return;
         }
 
@@ -243,7 +243,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             ((PreviewItemFragment) adapter.instantiateItem(mPager, mPreviousPos)).resetView();
 
             Item item = adapter.getMediaItem(position);
-            if (mSpec.countable) {
+            if (mSpec.getCountable()) {
                 int checkedNum = mSelectedCollection.checkedNumOf(item);
                 mCheckView.setCheckedNum(checkedNum);
                 if (checkedNum > 0) {
@@ -283,7 +283,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             mButtonApply.setText(getString(R.string.button_sure, selectedCount));
         }
 
-        if (mSpec.originalable) {
+        if (mSpec.getOriginalable()) {
             mOriginalLayout.setVisibility(View.VISIBLE);
             updateOriginalState();
         } else {
@@ -302,7 +302,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
             if (mOriginalEnable) {
                 IncapableDialog incapableDialog = IncapableDialog.newInstance("",
-                        getString(R.string.error_over_original_size, mSpec.originalMaxSize));
+                        getString(R.string.error_over_original_size, mSpec.getOriginalMaxSize()));
                 incapableDialog.show(getSupportFragmentManager(),
                         IncapableDialog.class.getName());
 
@@ -321,7 +321,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             Item item = mSelectedCollection.asList().get(i);
             if (item.isImage()) {
                 float size = PhotoMetadataUtils.getSizeInMB(item.getSize());
-                if (size > mSpec.originalMaxSize) {
+                if (size > mSpec.getOriginalMaxSize()) {
                     count++;
                 }
             }
@@ -339,7 +339,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
         if (item.isVideo()) {
             mOriginalLayout.setVisibility(View.GONE);
-        } else if (mSpec.originalable) {
+        } else if (mSpec.getOriginalable()) {
             mOriginalLayout.setVisibility(View.VISIBLE);
         }
     }

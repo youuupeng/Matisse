@@ -30,7 +30,7 @@ public class SelectedPreviewActivity extends BasePreviewActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!SelectionSpec.getInstance().hasInited) {
+        if (!SelectionSpec.Companion.getInstance().getHasInited()) {
             setResult(RESULT_CANCELED);
             finish();
             return;
@@ -40,7 +40,7 @@ public class SelectedPreviewActivity extends BasePreviewActivity {
         List<Item> selected = bundle.getParcelableArrayList(SelectedItemCollection.STATE_SELECTION);
         mAdapter.addAll(selected);
         mAdapter.notifyDataSetChanged();
-        if (mSpec.countable) {
+        if (mSpec.getCountable()) {
             mCheckView.setCheckedNum(1);
         } else {
             mCheckView.setChecked(true);
