@@ -21,7 +21,7 @@ import androidx.annotation.Nullable;
 
 import com.zhihu.matisse.internal.entity.Item;
 import com.zhihu.matisse.internal.entity.SelectionSpec;
-import com.zhihu.matisse.internal.model.SelectedItemCollection;
+import com.zhihu.matisse.internal.model.SelectedItemCollectionKt;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class SelectedPreviewActivity extends BasePreviewActivity {
         }
 
         Bundle bundle = getIntent().getBundleExtra(EXTRA_DEFAULT_BUNDLE);
-        List<Item> selected = bundle.getParcelableArrayList(SelectedItemCollection.STATE_SELECTION);
+        List<Item> selected = bundle.getParcelableArrayList(SelectedItemCollectionKt.STATE_SELECTION);
         mAdapter.addAll(selected);
         mAdapter.notifyDataSetChanged();
         if (mSpec.getCountable()) {

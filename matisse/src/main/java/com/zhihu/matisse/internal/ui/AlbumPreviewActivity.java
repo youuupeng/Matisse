@@ -50,7 +50,7 @@ public class AlbumPreviewActivity extends BasePreviewActivity implements
         }
         mCollection.onCreate(this, this);
         Album album = getIntent().getParcelableExtra(EXTRA_ALBUM);
-        mCollection.load(album);
+        mCollection.load(album,false);
 
         Item item = getIntent().getParcelableExtra(EXTRA_ITEM);
         if (mSpec.getCountable()) {
