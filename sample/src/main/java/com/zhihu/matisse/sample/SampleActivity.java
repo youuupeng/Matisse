@@ -20,18 +20,17 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
@@ -99,7 +98,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                             .setOnSelectedListener(new OnSelectedListener() {
                                                 @Override
                                                 public void onSelected(
-                                                        @NonNull List<Uri> uriList, @NonNull List<String> pathList) {
+                                                        @NonNull List<? extends Uri> uriList, @NonNull List<String> pathList) {
                                                     // DO SOMETHING IMMEDIATELY HERE
                                                     Log.e("onSelected", "onSelected: pathList=" + pathList);
 
@@ -147,11 +146,9 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                             .imageEngine(new Glide4Engine())    // for glide-V4
                                             .setOnSelectedListener(new OnSelectedListener() {
                                                 @Override
-                                                public void onSelected(
-                                                        @NonNull List<Uri> uriList, @NonNull List<String> pathList) {
+                                                public void onSelected(List<? extends Uri> uriList, List<String> pathList) {
                                                     // DO SOMETHING IMMEDIATELY HERE
                                                     Log.e("onSelected", "onSelected: pathList=" + pathList);
-
                                                 }
                                             })
                                             .showSingleMediaType(true)
