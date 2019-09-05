@@ -40,12 +40,12 @@ import com.zhihu.matisse.internal.ui.adapter.PreviewPagerAdapter;
 import com.zhihu.matisse.internal.ui.widget.CheckRadioView;
 import com.zhihu.matisse.internal.ui.widget.CheckView;
 import com.zhihu.matisse.internal.ui.widget.IncapableDialog;
-import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
-import com.zhihu.matisse.internal.utils.Platform;
 import com.zhihu.matisse.listener.OnFragmentInteractionListener;
 
 import static com.zhihu.matisse.internal.ui.widget.CheckViewKt.UNCHECKED;
 import static com.zhihu.matisse.internal.ui.widget.IncapableDialogKt.newDialogInstance;
+import static com.zhihu.matisse.internal.utils.PhotoMetadataUtilsKt.getSizeInMB;
+import static com.zhihu.matisse.internal.utils.PlatformKt.hasKitKat;
 
 public abstract class BasePreviewActivity extends AppCompatActivity implements View.OnClickListener,
         ViewPager.OnPageChangeListener, OnFragmentInteractionListener {
@@ -87,7 +87,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             return;
         }
         setContentView(R.layout.activity_media_preview);
-        if (Platform.hasKitKat()) {
+        if (hasKitKat()) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
@@ -323,7 +323,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         for (int i = 0; i < selectedCount; i++) {
             Item item = mSelectedCollection.asList().get(i);
             if (item.isImage()) {
-                float size = PhotoMetadataUtils.getSizeInMB(item.getSize());
+                float size = getSizeInMB(item.getSize());
                 if (size > mSpec.getOriginalMaxSize()) {
                     count++;
                 }
@@ -335,7 +335,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
     protected void updateSize(Item item) {
         if (item.isGif()) {
             mSize.setVisibility(View.VISIBLE);
-            mSize.setText(PhotoMetadataUtils.getSizeInMB(item.getSize()) + "M");
+            mSize.setText(getSizeInMB(item.getSize()) + "M");
         } else {
             mSize.setVisibility(View.GONE);
         }

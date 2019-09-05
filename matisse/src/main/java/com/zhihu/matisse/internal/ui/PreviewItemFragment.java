@@ -31,11 +31,12 @@ import androidx.fragment.app.Fragment;
 import com.zhihu.matisse.R;
 import com.zhihu.matisse.internal.entity.Item;
 import com.zhihu.matisse.internal.entity.SelectionSpec;
-import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 import com.zhihu.matisse.listener.OnFragmentInteractionListener;
 
 import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
+
+import static com.zhihu.matisse.internal.utils.PhotoMetadataUtilsKt.getBitmapSize;
 
 public class PreviewItemFragment extends Fragment {
 
@@ -94,7 +95,7 @@ public class PreviewItemFragment extends Fragment {
             }
         });
 
-        Point size = PhotoMetadataUtils.getBitmapSize(item.getUri(), getActivity());
+        Point size = getBitmapSize(item.getUri(), getActivity());
         if (item.isGif()) {
             SelectionSpec.Companion.getInstance().getImageEngine().loadGifImage(getContext(), size.x, size.y, image,
                     item.getUri());

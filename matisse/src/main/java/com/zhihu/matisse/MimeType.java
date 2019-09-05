@@ -19,15 +19,16 @@ package com.zhihu.matisse;
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.text.TextUtils;
-import androidx.collection.ArraySet;
 import android.webkit.MimeTypeMap;
 
-import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
+import androidx.collection.ArraySet;
 
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Locale;
 import java.util.Set;
+
+import static com.zhihu.matisse.internal.utils.PhotoMetadataUtilsKt.getUriPath;
 
 /**
  * MIME Type enumeration to restrict selectable media on the selection activity. Matisse only supports images and
@@ -161,7 +162,7 @@ public enum MimeType {
             }
             if (!pathParsed) {
                 // we only resolve the path for one time
-                path = PhotoMetadataUtils.getPath(resolver, uri);
+                path = getUriPath(resolver, uri);
                 if (!TextUtils.isEmpty(path)) {
                     path = path.toLowerCase(Locale.US);
                 }

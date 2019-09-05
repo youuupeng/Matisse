@@ -35,7 +35,8 @@ import com.zhihu.matisse.internal.model.AlbumMediaCollection;
 import com.zhihu.matisse.internal.model.SelectedItemCollection;
 import com.zhihu.matisse.internal.ui.adapter.AlbumMediaAdapter;
 import com.zhihu.matisse.internal.ui.widget.MediaGridInset;
-import com.zhihu.matisse.internal.utils.UIUtils;
+
+import static com.zhihu.matisse.internal.utils.UIUtilsKt.spanCount;
 
 public class MediaSelectionFragment extends Fragment implements
         AlbumMediaCollection.AlbumMediaCallbacks, AlbumMediaAdapter.CheckStateListener,
@@ -101,7 +102,7 @@ public class MediaSelectionFragment extends Fragment implements
         int spanCount;
         SelectionSpec selectionSpec = SelectionSpec.Companion.getInstance();
         if (selectionSpec.getGridExpectedSize() > 0) {
-            spanCount = UIUtils.spanCount(getContext(), selectionSpec.getGridExpectedSize());
+            spanCount = spanCount(getContext(), selectionSpec.getGridExpectedSize());
         } else {
             spanCount = selectionSpec.getSpanCount();
         }

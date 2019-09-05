@@ -22,10 +22,12 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.IncapableCause;
 import com.zhihu.matisse.internal.entity.Item;
-import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static com.zhihu.matisse.internal.utils.PhotoMetadataUtilsKt.getBitmapBound;
+import static com.zhihu.matisse.internal.utils.PhotoMetadataUtilsKt.getSizeInMB;
 
 class GifSizeFilter extends Filter {
 
@@ -51,10 +53,10 @@ class GifSizeFilter extends Filter {
         if (!needFiltering(context, item))
             return null;
 
-        Point size = PhotoMetadataUtils.getBitmapBound(context.getContentResolver(), item.getUri());
+        Point size = getBitmapBound(context.getContentResolver(), item.getUri());
         if (size.x < mMinWidth || size.y < mMinHeight || item.getSize() > mMaxSize) {
             return new IncapableCause(IncapableCause.Form.DIALOG, context.getString(R.string.error_gif, mMinWidth,
-                    String.valueOf(PhotoMetadataUtils.getSizeInMB(mMaxSize))));
+                    String.valueOf(getSizeInMB(mMaxSize))));
         }
         return null;
     }

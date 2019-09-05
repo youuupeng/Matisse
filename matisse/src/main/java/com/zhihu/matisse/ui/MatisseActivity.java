@@ -56,12 +56,12 @@ import com.zhihu.matisse.internal.ui.widget.AlbumsSpinner;
 import com.zhihu.matisse.internal.ui.widget.CheckRadioView;
 import com.zhihu.matisse.internal.ui.widget.IncapableDialog;
 import com.zhihu.matisse.internal.utils.MediaStoreCompat;
-import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 
 import java.util.ArrayList;
 
 import static com.zhihu.matisse.internal.ui.widget.IncapableDialogKt.newDialogInstance;
 import static com.zhihu.matisse.internal.utils.PathUtilsKt.getPath;
+import static com.zhihu.matisse.internal.utils.PhotoMetadataUtilsKt.getSizeInMB;
 
 /**
  * Main Activity to display albums and media content (images/videos) in each album
@@ -296,7 +296,7 @@ public class MatisseActivity extends AppCompatActivity implements
             Item item = mSelectedCollection.asList().get(i);
 
             if (item.isImage()) {
-                float size = PhotoMetadataUtils.getSizeInMB(item.getSize());
+                float size = getSizeInMB(item.getSize());
                 if (size > mSpec.getOriginalMaxSize()) {
                     count++;
                 }

@@ -9,8 +9,8 @@ import com.zhihu.matisse.internal.entity.IncapableCause
 import com.zhihu.matisse.internal.entity.Item
 import com.zhihu.matisse.internal.entity.SelectionSpec
 import com.zhihu.matisse.internal.ui.widget.UNCHECKED
-import com.zhihu.matisse.internal.utils.PhotoMetadataUtils
 import com.zhihu.matisse.internal.utils.getPath
+import com.zhihu.matisse.internal.utils.isAcceptableWithContext
 
 /**
  * Description
@@ -163,7 +163,7 @@ class SelectedItemCollection(private val mContext: Context) {
                 IncapableCause(cause)
             }
             typeConflict(item) -> IncapableCause(mContext.getString(R.string.error_type_conflict))
-            else -> PhotoMetadataUtils.isAcceptable(mContext, item)
+            else -> isAcceptableWithContext(mContext, item)
         }
     }
 
@@ -204,8 +204,8 @@ class SelectedItemCollection(private val mContext: Context) {
      */
     private fun typeConflict(item: Item) =
             SelectionSpec.getInstance().mediaTypeExclusive
-            && ((item.isImage() && (mCollectionType == COLLECTION_VIDEO || mCollectionType == COLLECTION_MIXED))
-            || (item.isVideo() && (mCollectionType == COLLECTION_IMAGE || mCollectionType == COLLECTION_MIXED)))
+                    && ((item.isImage() && (mCollectionType == COLLECTION_VIDEO || mCollectionType == COLLECTION_MIXED))
+                    || (item.isVideo() && (mCollectionType == COLLECTION_IMAGE || mCollectionType == COLLECTION_MIXED)))
 
     fun count(): Int = mItems?.size ?: 0
 

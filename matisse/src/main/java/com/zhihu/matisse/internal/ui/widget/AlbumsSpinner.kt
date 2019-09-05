@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.ListPopupWindow
 import com.zhihu.matisse.R
 import com.zhihu.matisse.internal.entity.valueOfAlbum
-import com.zhihu.matisse.internal.utils.Platform
+import com.zhihu.matisse.internal.utils.hasICS
 
 /**
  * Description
@@ -61,7 +61,7 @@ class AlbumsSpinner constructor(val context: Context) {
         if (mSelected!!.visibility == View.VISIBLE) {
             mSelected!!.text = displayName
         } else {
-            if (Platform.hasICS()) {
+            if (hasICS()) {
                 mSelected!!.alpha = 0.0f
                 mSelected!!.visibility = View.VISIBLE
                 mSelected!!.text = displayName
