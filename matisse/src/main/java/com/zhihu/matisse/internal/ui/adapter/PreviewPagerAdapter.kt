@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.zhihu.matisse.internal.entity.Item
-import com.zhihu.matisse.internal.ui.PreviewItemFragment.newPreviewItemInstance
+import com.zhihu.matisse.internal.ui.newPreviewItemInstance
 
 /**
  * Description

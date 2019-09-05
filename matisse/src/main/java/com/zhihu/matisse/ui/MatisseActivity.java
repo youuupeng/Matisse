@@ -47,7 +47,6 @@ import com.zhihu.matisse.internal.model.AlbumCollection;
 import com.zhihu.matisse.internal.model.SelectedItemCollection;
 import com.zhihu.matisse.internal.model.SelectedItemCollectionKt;
 import com.zhihu.matisse.internal.ui.AlbumPreviewActivity;
-import com.zhihu.matisse.internal.ui.BasePreviewActivity;
 import com.zhihu.matisse.internal.ui.MediaSelectionFragment;
 import com.zhihu.matisse.internal.ui.SelectedPreviewActivity;
 import com.zhihu.matisse.internal.ui.adapter.AlbumMediaAdapter;
@@ -59,6 +58,12 @@ import com.zhihu.matisse.internal.utils.MediaStoreCompat;
 
 import java.util.ArrayList;
 
+import static com.zhihu.matisse.internal.ui.AlbumPreviewActivityKt.EXTRA_ITEM;
+import static com.zhihu.matisse.internal.ui.BasePreviewActivityKt.EXTRA_DEFAULT_BUNDLE;
+import static com.zhihu.matisse.internal.ui.BasePreviewActivityKt.EXTRA_RESULT_APPLY;
+import static com.zhihu.matisse.internal.ui.BasePreviewActivityKt.EXTRA_RESULT_BUNDLE;
+import static com.zhihu.matisse.internal.ui.MediaSelectionFragmentKt.EXTRA_ALBUM;
+import static com.zhihu.matisse.internal.ui.MediaSelectionFragmentKt.newMediaSelectionInstance;
 import static com.zhihu.matisse.internal.ui.widget.IncapableDialogKt.newDialogInstance;
 import static com.zhihu.matisse.internal.utils.PathUtilsKt.getPath;
 import static com.zhihu.matisse.internal.utils.PhotoMetadataUtilsKt.getSizeInMB;
@@ -195,12 +200,12 @@ public class MatisseActivity extends AppCompatActivity implements
             return;
 
         if (requestCode == REQUEST_CODE_PREVIEW) {
-            Bundle resultBundle = data.getBundleExtra(BasePreviewActivity.EXTRA_RESULT_BUNDLE);
+            Bundle resultBundle = data.getBundleExtra(EXTRA_RESULT_BUNDLE);
             ArrayList<Item> selected = resultBundle.getParcelableArrayList(SelectedItemCollectionKt.STATE_SELECTION);
-            mOriginalEnable = data.getBooleanExtra(BasePreviewActivity.EXTRA_RESULT_ORIGINAL_ENABLE, false);
+            mOriginalEnable = data.getBooleanExtra(EXTRA_RESULT_ORIGINAL_ENABLE, false);
             int collectionType = resultBundle.getInt(SelectedItemCollectionKt.STATE_COLLECTION_TYPE,
                     SelectedItemCollectionKt.COLLECTION_UNDEFINED);
-            if (data.getBooleanExtra(BasePreviewActivity.EXTRA_RESULT_APPLY, false)) {
+            if (data.getBooleanExtra(EXTRA_RESULT_APPLY, false)) {
                 Intent result = new Intent();
                 ArrayList<Uri> selectedUris = new ArrayList<>();
                 ArrayList<String> selectedPaths = new ArrayList<>();
@@ -309,8 +314,8 @@ public class MatisseActivity extends AppCompatActivity implements
     public void onClick(View v) {
         if (v.getId() == R.id.button_preview) {
             Intent intent = new Intent(this, SelectedPreviewActivity.class);
-            intent.putExtra(BasePreviewActivity.EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
-            intent.putExtra(BasePreviewActivity.EXTRA_RESULT_ORIGINAL_ENABLE, mOriginalEnable);
+            intent.putExtra(EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
+            intent.putExtra(EXTRA_RESULT_ORIGINAL_ENABLE, mOriginalEnable);
             startActivityForResult(intent, REQUEST_CODE_PREVIEW);
         } else if (v.getId() == R.id.button_apply) {
             Intent result = new Intent();
@@ -389,7 +394,7 @@ public class MatisseActivity extends AppCompatActivity implements
         } else {
             mContainer.setVisibility(View.VISIBLE);
             mEmptyView.setVisibility(View.GONE);
-            Fragment fragment = MediaSelectionFragment.newInstance(album);
+            Fragment fragment = newMediaSelectionInstance(album);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.container, fragment, MediaSelectionFragment.class.getSimpleName())
@@ -411,10 +416,10 @@ public class MatisseActivity extends AppCompatActivity implements
     @Override
     public void onMediaClick(Album album, Item item, int adapterPosition) {
         Intent intent = new Intent(this, AlbumPreviewActivity.class);
-        intent.putExtra(AlbumPreviewActivity.EXTRA_ALBUM, album);
-        intent.putExtra(AlbumPreviewActivity.EXTRA_ITEM, item);
-        intent.putExtra(BasePreviewActivity.EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
-        intent.putExtra(BasePreviewActivity.EXTRA_RESULT_ORIGINAL_ENABLE, mOriginalEnable);
+        intent.putExtra(EXTRA_ALBUM, album);
+        intent.putExtra(EXTRA_ITEM, item);
+        intent.putExtra(EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
+        intent.putExtra(EXTRA_RESULT_ORIGINAL_ENABLE, mOriginalEnable);
         startActivityForResult(intent, REQUEST_CODE_PREVIEW);
     }
 
