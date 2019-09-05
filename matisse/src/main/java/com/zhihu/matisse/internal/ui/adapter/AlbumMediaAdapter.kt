@@ -216,7 +216,7 @@ class AlbumMediaAdapter (context: Context, private val selectedCollection: Selec
         if (first == -1 || last == -1) {
             return
         }
-        val cursor = cursor
+        val cursor = getCursor()
         for (i in first..last) {
             val holder = recyclerView.findViewHolderForAdapterPosition(first)
             if (holder is MediaViewHolder) {

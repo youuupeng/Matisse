@@ -9,3 +9,5 @@ package com.zhihu.matisse.internal.utils
  */
 
 fun failIllegalArgument(message: String): Nothing = throw IllegalArgumentException(message)
+
+fun failIllegalStateException(message: String): Nothing = throw IllegalStateException(message)

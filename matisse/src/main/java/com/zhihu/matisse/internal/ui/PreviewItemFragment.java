@@ -42,7 +42,7 @@ public class PreviewItemFragment extends Fragment {
     private static final String ARGS_ITEM = "args_item";
     private OnFragmentInteractionListener mListener;
 
-    public static PreviewItemFragment newInstance(Item item) {
+    public static PreviewItemFragment newPreviewItemInstance(Item item) {
         PreviewItemFragment fragment = new PreviewItemFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(ARGS_ITEM, item);
