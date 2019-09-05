@@ -61,6 +61,8 @@ import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 
 import java.util.ArrayList;
 
+import static com.zhihu.matisse.internal.ui.widget.IncapableDialogKt.newDialogInstance;
+
 /**
  * Main Activity to display albums and media content (images/videos) in each album
  * and also support media selecting operations.
@@ -275,7 +277,7 @@ public class MatisseActivity extends AppCompatActivity implements
         if (countOverMaxSize() > 0) {
 
             if (mOriginalEnable) {
-                IncapableDialog incapableDialog = IncapableDialog.newInstance("",
+                IncapableDialog incapableDialog = newDialogInstance("",
                         getString(R.string.error_over_original_size, mSpec.getOriginalMaxSize()));
                 incapableDialog.show(getSupportFragmentManager(),
                         IncapableDialog.class.getName());
@@ -322,7 +324,7 @@ public class MatisseActivity extends AppCompatActivity implements
         } else if (v.getId() == R.id.originalLayout) {
             int count = countOverMaxSize();
             if (count > 0) {
-                IncapableDialog incapableDialog = IncapableDialog.newInstance("",
+                IncapableDialog incapableDialog = newDialogInstance("",
                         getString(R.string.error_over_original_count, count, mSpec.getOriginalMaxSize()));
                 incapableDialog.show(getSupportFragmentManager(),
                         IncapableDialog.class.getName());

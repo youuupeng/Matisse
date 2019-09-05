@@ -44,6 +44,8 @@ import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 import com.zhihu.matisse.internal.utils.Platform;
 import com.zhihu.matisse.listener.OnFragmentInteractionListener;
 
+import static com.zhihu.matisse.internal.ui.widget.IncapableDialogKt.newDialogInstance;
+
 public abstract class BasePreviewActivity extends AppCompatActivity implements View.OnClickListener,
         ViewPager.OnPageChangeListener, OnFragmentInteractionListener {
 
@@ -155,7 +157,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
                 int count = countOverMaxSize();
                 if (count > 0) {
-                    IncapableDialog incapableDialog = IncapableDialog.newInstance("",
+                    IncapableDialog incapableDialog = newDialogInstance("",
                             getString(R.string.error_over_original_count, count, mSpec.getOriginalMaxSize()));
                     incapableDialog.show(getSupportFragmentManager(),
                             IncapableDialog.class.getName());
@@ -301,7 +303,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         if (countOverMaxSize() > 0) {
 
             if (mOriginalEnable) {
-                IncapableDialog incapableDialog = IncapableDialog.newInstance("",
+                IncapableDialog incapableDialog = newDialogInstance("",
                         getString(R.string.error_over_original_size, mSpec.getOriginalMaxSize()));
                 incapableDialog.show(getSupportFragmentManager(),
                         IncapableDialog.class.getName());

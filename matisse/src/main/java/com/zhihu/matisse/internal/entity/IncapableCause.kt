@@ -2,7 +2,7 @@ package com.zhihu.matisse.internal.entity
 
 import android.content.Context
 import androidx.fragment.app.FragmentActivity
-import com.zhihu.matisse.internal.ui.widget.IncapableDialog
+import com.zhihu.matisse.internal.ui.widget.newDialogInstance
 import org.jetbrains.anko.toast
 
 /**
@@ -19,7 +19,7 @@ fun handleCause(context: Context, cause: IncapableCause?) {
             IncapableCause.Form.NONE -> {
             }
             IncapableCause.Form.DIALOG -> {
-                val incapableDialog = IncapableDialog.newInstance(cause.mTitle, cause.mMessage)
+                val incapableDialog = newDialogInstance(cause.mTitle!!, cause.mMessage!!)
                 incapableDialog.show((context as FragmentActivity).supportFragmentManager, IncapableCause::class.java.name)
             }
             else -> context.toast(cause.mMessage.toString())
