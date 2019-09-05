@@ -31,7 +31,7 @@ private const val VIEW_TYPE_MEDIA = 0x02
 class AlbumMediaAdapter(context: Context, private val selectedCollection: SelectedItemCollection, private val recyclerView: RecyclerView) : RecyclerViewCursorAdapter<RecyclerView.ViewHolder>(null), MediaGrid.OnMediaGridClickListener {
     private var mImageResize = 0
     private var mPlaceholder: Drawable? = null
-    private var mSelectionSpec: SelectionSpec = SelectionSpec.getInstance()
+    private var mSelectionSpec = SelectionSpec.getInstance()
     private var mCheckStateListener: CheckStateListener? = null
     private var mOnMediaClickListener: OnMediaClickListener? = null
 
@@ -68,12 +68,16 @@ class AlbumMediaAdapter(context: Context, private val selectedCollection: Select
                 val color = typedArray.getColor(0, 0)
                 typedArray.recycle()
 
-                drawables.filterNotNull().forEachIndexed { index, it ->
-                    val state = it.constantState ?: return@forEachIndexed
-                    val newDrawable = state.newDrawable().mutate()
-                    newDrawable.setColorFilter(color, PorterDuff.Mode.SRC_IN)
-                    newDrawable.bounds = it.bounds
-                    drawables[index] = newDrawable
+                for (i in drawables.indices) {
+                    val drawable = drawables[i]
+                    if (drawable != null) {
+                        val state = drawable.constantState ?: continue
+
+                        val newDrawable = state.newDrawable().mutate()
+                        newDrawable.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+                        newDrawable.bounds = drawable.bounds
+                        drawables[i] = newDrawable
+                    }
                 }
                 holder.mHint.setCompoundDrawables(drawables[0], drawables[1], drawables[2], drawables[3])
             }
