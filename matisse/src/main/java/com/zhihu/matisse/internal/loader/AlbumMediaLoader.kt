@@ -10,7 +10,7 @@ import com.zhihu.matisse.internal.entity.Album
 import com.zhihu.matisse.internal.entity.ITEM_DISPLAY_NAME_CAPTURE
 import com.zhihu.matisse.internal.entity.ITEM_ID_CAPTURE
 import com.zhihu.matisse.internal.entity.SelectionSpec
-import com.zhihu.matisse.internal.utils.MediaStoreCompat.hasCameraFeature
+import com.zhihu.matisse.internal.utils.hasCameraFeature
 
 /**
  * Description

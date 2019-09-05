@@ -9,8 +9,8 @@ import com.zhihu.matisse.internal.entity.IncapableCause
 import com.zhihu.matisse.internal.entity.Item
 import com.zhihu.matisse.internal.entity.SelectionSpec
 import com.zhihu.matisse.internal.ui.widget.UNCHECKED
-import com.zhihu.matisse.internal.utils.PathUtils.getPath
 import com.zhihu.matisse.internal.utils.PhotoMetadataUtils
+import com.zhihu.matisse.internal.utils.getPath
 
 /**
  * Description

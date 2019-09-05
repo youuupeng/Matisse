@@ -42,6 +42,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import static com.zhihu.matisse.internal.utils.ExifInterfaceCompatKt.newExifInterfaceInstance;
+
 public final class PhotoMetadataUtils {
     private static final String TAG = PhotoMetadataUtils.class.getSimpleName();
     private static final int MAX_WIDTH = 1600;
@@ -157,7 +159,7 @@ public final class PhotoMetadataUtils {
     private static boolean shouldRotate(ContentResolver resolver, Uri uri) {
         ExifInterface exif;
         try {
-            exif = ExifInterfaceCompat.newInstance(getPath(resolver, uri));
+            exif = newExifInterfaceInstance(getPath(resolver, uri));
         } catch (IOException e) {
             Log.e(TAG, "could not read exif info of the image: " + uri);
             return false;

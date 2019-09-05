@@ -56,12 +56,12 @@ import com.zhihu.matisse.internal.ui.widget.AlbumsSpinner;
 import com.zhihu.matisse.internal.ui.widget.CheckRadioView;
 import com.zhihu.matisse.internal.ui.widget.IncapableDialog;
 import com.zhihu.matisse.internal.utils.MediaStoreCompat;
-import com.zhihu.matisse.internal.utils.PathUtils;
 import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 
 import java.util.ArrayList;
 
 import static com.zhihu.matisse.internal.ui.widget.IncapableDialogKt.newDialogInstance;
+import static com.zhihu.matisse.internal.utils.PathUtilsKt.getPath;
 
 /**
  * Main Activity to display albums and media content (images/videos) in each album
@@ -113,10 +113,10 @@ public class MatisseActivity extends AppCompatActivity implements
         }
 
         if (mSpec.getCapture()) {
-            mMediaStoreCompat = new MediaStoreCompat(this);
+            mMediaStoreCompat = new MediaStoreCompat(this, null);
             if (mSpec.getCaptureStrategy() == null)
                 throw new RuntimeException("Don't forget to set CaptureStrategy.");
-            mMediaStoreCompat.setCaptureStrategy(mSpec.getCaptureStrategy());
+            mMediaStoreCompat.setMCaptureStrategy(mSpec.getCaptureStrategy());
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -207,7 +207,7 @@ public class MatisseActivity extends AppCompatActivity implements
                 if (selected != null) {
                     for (Item item : selected) {
                         selectedUris.add(item.getUri());
-                        selectedPaths.add(PathUtils.getPath(this, item.getUri()));
+                        selectedPaths.add(getPath(this, item.getUri()));
                     }
                 }
                 result.putParcelableArrayListExtra(EXTRA_RESULT_SELECTION, selectedUris);
@@ -226,8 +226,8 @@ public class MatisseActivity extends AppCompatActivity implements
             }
         } else if (requestCode == REQUEST_CODE_CAPTURE) {
             // Just pass the data back to previous calling Activity.
-            Uri contentUri = mMediaStoreCompat.getCurrentPhotoUri();
-            String path = mMediaStoreCompat.getCurrentPhotoPath();
+            Uri contentUri = mMediaStoreCompat.getMCurrentPhotoUri();
+            String path = mMediaStoreCompat.getMCurrentPhotoPath();
             ArrayList<Uri> selected = new ArrayList<>();
             selected.add(contentUri);
             ArrayList<String> selectedPath = new ArrayList<>();
