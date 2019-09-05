@@ -44,6 +44,7 @@ import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 import com.zhihu.matisse.internal.utils.Platform;
 import com.zhihu.matisse.listener.OnFragmentInteractionListener;
 
+import static com.zhihu.matisse.internal.ui.widget.CheckViewKt.UNCHECKED;
 import static com.zhihu.matisse.internal.ui.widget.IncapableDialogKt.newDialogInstance;
 
 public abstract class BasePreviewActivity extends AppCompatActivity implements View.OnClickListener,
@@ -113,7 +114,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         mAdapter = new PreviewPagerAdapter(getSupportFragmentManager(), null);
         mPager.setAdapter(mAdapter);
         mCheckView = (CheckView) findViewById(R.id.check_view);
-        mCheckView.setCountable(mSpec.getCountable());
+        mCheckView.setMCountable(mSpec.getCountable());
         mBottomToolbar = findViewById(R.id.bottom_toolbar);
         mTopToolbar = findViewById(R.id.top_toolbar);
 
@@ -125,17 +126,17 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                 if (mSelectedCollection.isSelected(item)) {
                     mSelectedCollection.remove(item);
                     if (mSpec.getCountable()) {
-                        mCheckView.setCheckedNum(CheckView.UNCHECKED);
+                        mCheckView.setMCheckedNum(UNCHECKED);
                     } else {
-                        mCheckView.setChecked(false);
+                        mCheckView.setMChecked(false);
                     }
                 } else {
                     if (assertAddSelection(item)) {
                         mSelectedCollection.add(item);
                         if (mSpec.getCountable()) {
-                            mCheckView.setCheckedNum(mSelectedCollection.checkedNumOf(item));
+                            mCheckView.setMCheckedNum(mSelectedCollection.checkedNumOf(item));
                         } else {
-                            mCheckView.setChecked(true);
+                            mCheckView.setMChecked(true);
                         }
                     }
                 }
@@ -247,7 +248,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             Item item = adapter.getMediaItem(position);
             if (mSpec.getCountable()) {
                 int checkedNum = mSelectedCollection.checkedNumOf(item);
-                mCheckView.setCheckedNum(checkedNum);
+                mCheckView.setMCheckedNum(checkedNum);
                 if (checkedNum > 0) {
                     mCheckView.setEnabled(true);
                 } else {
@@ -255,7 +256,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                 }
             } else {
                 boolean checked = mSelectedCollection.isSelected(item);
-                mCheckView.setChecked(checked);
+                mCheckView.setMChecked(checked);
                 if (checked) {
                     mCheckView.setEnabled(true);
                 } else {

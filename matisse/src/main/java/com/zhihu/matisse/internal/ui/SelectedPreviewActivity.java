@@ -41,9 +41,9 @@ public class SelectedPreviewActivity extends BasePreviewActivity {
         mAdapter.addAll(selected);
         mAdapter.notifyDataSetChanged();
         if (mSpec.getCountable()) {
-            mCheckView.setCheckedNum(1);
+            mCheckView.setMCheckedNum(1);
         } else {
-            mCheckView.setChecked(true);
+            mCheckView.setMChecked(true);
         }
         mPreviousPos = 0;
         updateSize(selected.get(0));

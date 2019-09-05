@@ -54,9 +54,9 @@ public class AlbumPreviewActivity extends BasePreviewActivity implements
 
         Item item = getIntent().getParcelableExtra(EXTRA_ITEM);
         if (mSpec.getCountable()) {
-            mCheckView.setCheckedNum(mSelectedCollection.checkedNumOf(item));
+            mCheckView.setMCheckedNum(mSelectedCollection.checkedNumOf(item));
         } else {
-            mCheckView.setChecked(mSelectedCollection.isSelected(item));
+            mCheckView.setMChecked(mSelectedCollection.isSelected(item));
         }
         updateSize(item);
     }

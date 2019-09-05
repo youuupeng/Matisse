@@ -15,8 +15,8 @@ import com.zhihu.matisse.R
 import com.zhihu.matisse.internal.entity.*
 import com.zhihu.matisse.internal.model.SelectedItemCollection
 import com.zhihu.matisse.internal.ui.widget.CheckView
-import com.zhihu.matisse.internal.ui.widget.CheckView.UNCHECKED
 import com.zhihu.matisse.internal.ui.widget.MediaGrid
+import com.zhihu.matisse.internal.ui.widget.UNCHECKED
 
 /**
  * Description

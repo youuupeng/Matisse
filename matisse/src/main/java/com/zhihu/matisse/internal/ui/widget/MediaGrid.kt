@@ -76,11 +76,11 @@ class MediaGrid : SquareFrameLayout, View.OnClickListener {
     }
 
     fun setCheckedNum(checkedNum: Int) {
-        mCheckView.setCheckedNum(checkedNum)
+        mCheckView.mCheckedNum = checkedNum
     }
 
     fun setChecked(checked: Boolean) {
-        mCheckView.setChecked(checked)
+        mCheckView.mChecked = checked
     }
 
     fun removeOnMediaGridClickListener() {
@@ -115,7 +115,7 @@ class MediaGrid : SquareFrameLayout, View.OnClickListener {
     }
 
     private fun initCheckView() {
-        mCheckView.setCountable(mPreBindInfo.mCheckViewCountable)
+        mCheckView.mCountable = mPreBindInfo.mCheckViewCountable
     }
 
     interface OnMediaGridClickListener {

@@ -14,12 +14,20 @@ import androidx.appcompat.widget.AppCompatImageView
  * @author peyo
  * @date 9/5/2019
  */
-class RoundedRectangleImageView constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatImageView(context, attrs, defStyleAttr) {
+class RoundedRectangleImageView : AppCompatImageView {
     var mRadius = 0F
     lateinit var mRoundedRectPath: Path
     lateinit var mRectF: RectF
 
-    init {
+    constructor(context: Context) : super(context) {
+        init(context)
+    }
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        init(context)
+    }
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         init(context)
     }
 
