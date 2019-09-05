@@ -2,8 +2,7 @@ package com.zhihu.matisse.internal.entity
 
 import android.content.pm.ActivityInfo
 import androidx.annotation.StyleRes
-import com.zhihu.matisse.MimeType
-import com.zhihu.matisse.R
+import com.zhihu.matisse.*
 import com.zhihu.matisse.engine.ImageEngine
 import com.zhihu.matisse.engine.impl.GlideEngine
 import com.zhihu.matisse.filter.Filter
@@ -84,9 +83,9 @@ class SelectionSpec private constructor(){
 
     fun needOrientationRestriction() = orientation != ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
-    fun onlyShowImages() = showSingleMediaType && MimeType.ofImage().containsAll(mimeTypeSet)
+    fun onlyShowImages() = showSingleMediaType && ofImageMimeType().containsAll(mimeTypeSet)
 
-    fun onlyShowVideos() = showSingleMediaType && MimeType.ofVideo().containsAll(mimeTypeSet)
+    fun onlyShowVideos() = showSingleMediaType && ofVideoMimeType().containsAll(mimeTypeSet)
 
-    fun onlyShowGif() = showSingleMediaType && MimeType.ofGif() == mimeTypeSet
+    fun onlyShowGif() = showSingleMediaType && ofGifMimeType() == mimeTypeSet
 }

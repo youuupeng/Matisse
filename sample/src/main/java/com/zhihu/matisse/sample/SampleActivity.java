@@ -46,6 +46,9 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+import static com.zhihu.matisse.MimeTypeKt.ofImageMimeType;
+import static com.zhihu.matisse.MimeTypeKt.ofMimeType;
+
 public class SampleActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "SampleActivity";
     private static final int REQUEST_CODE_CHOOSE = 23;
@@ -81,8 +84,8 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                         if (aBoolean) {
                             switch (v.getId()) {
                                 case R.id.zhihu:
-                                    Matisse.from(SampleActivity.this)
-                                            .choose(MimeType.ofImage(), false)
+                                    Matisse.Companion.from(SampleActivity.this)
+                                            .choose(ofImageMimeType(), false)
                                             .countable(true)
                                             .capture(true)
                                             .captureStrategy(
@@ -118,8 +121,8 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                             .forResult(REQUEST_CODE_CHOOSE);
                                     break;
                                 case R.id.dracula:
-                                    Matisse.from(SampleActivity.this)
-                                            .choose(MimeType.ofImage())
+                                    Matisse.Companion.from(SampleActivity.this)
+                                            .choose(ofImageMimeType())
                                             .theme(R.style.Matisse_Dracula)
                                             .countable(false)
                                             .addFilter(new GifSizeFilter(320, 320, 5 * FilterKt.K * FilterKt.K))
@@ -130,8 +133,8 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                             .forResult(REQUEST_CODE_CHOOSE);
                                     break;
                                 case R.id.only_gif:
-                                    Matisse.from(SampleActivity.this)
-                                            .choose(MimeType.of(MimeType.GIF), false)
+                                    Matisse.Companion.from(SampleActivity.this)
+                                            .choose(ofMimeType(MimeType.GIF), false)
                                             .countable(true)
                                             .capture(true)
                                             .captureStrategy(
@@ -190,8 +193,8 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
-            mAdapter.setData(Matisse.obtainResult(data), Matisse.obtainPathResult(data));
-            Log.e("OnActivityResult ", String.valueOf(Matisse.obtainOriginalState(data)));
+            mAdapter.setData(Matisse.Companion.obtainResult(data), Matisse.Companion.obtainPathResult(data));
+            Log.e("OnActivityResult ", String.valueOf(Matisse.Companion.obtainOriginalState(data)));
         }
     }
 

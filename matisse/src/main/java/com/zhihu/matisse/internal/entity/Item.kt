@@ -6,7 +6,9 @@ import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
 import android.provider.MediaStore
-import com.zhihu.matisse.MimeType
+import com.zhihu.matisse.isGifMimeType
+import com.zhihu.matisse.isImageMimeType
+import com.zhihu.matisse.isVideoMimeType
 
 /**
  * Description
@@ -76,11 +78,11 @@ class Item() : Parcelable {
 
     fun isCapture() = id == ITEM_ID_CAPTURE
 
-    fun isImage() = MimeType.isImage(mimeType)
+    fun isImage() = isImageMimeType(mimeType)
 
-    fun isGif() = MimeType.isGif(mimeType)
+    fun isGif() = isGifMimeType(mimeType)
 
-    fun isVideo() = MimeType.isVideo(mimeType)
+    fun isVideo() = isVideoMimeType(mimeType)
 
     override fun equals(other: Any?): Boolean {
         return if (other !is Item) {
