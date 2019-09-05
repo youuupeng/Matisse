@@ -33,6 +33,13 @@ abstract class RecyclerViewCursorAdapter<VH : RecyclerView.ViewHolder> construct
         onBindViewHolder(holder, mCursor!!)
     }
 
+    override fun getItemViewType(position: Int): Int {
+        if (!mCursor!!.moveToPosition(position)) {
+            failIllegalStateException("Could not move cursor to position $position when trying to get item view type.")
+        }
+        return getItemViewType(position, mCursor!!)
+    }
+
     protected abstract fun getItemViewType(position: Int, cursor: Cursor): Int
 
     override fun getItemCount() = if (isDataValid(mCursor)) {
