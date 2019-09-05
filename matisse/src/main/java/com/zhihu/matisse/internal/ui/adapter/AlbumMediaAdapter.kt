@@ -28,7 +28,7 @@ import com.zhihu.matisse.internal.ui.widget.MediaGrid
 private const val VIEW_TYPE_CAPTURE = 0x01
 private const val VIEW_TYPE_MEDIA = 0x02
 
-class AlbumMediaAdapter (context: Context, private val selectedCollection: SelectedItemCollection, private val recyclerView: RecyclerView) : RecyclerViewCursorAdapter<RecyclerView.ViewHolder>(null), MediaGrid.OnMediaGridClickListener {
+class AlbumMediaAdapter(context: Context, private val selectedCollection: SelectedItemCollection, private val recyclerView: RecyclerView) : RecyclerViewCursorAdapter<RecyclerView.ViewHolder>(null), MediaGrid.OnMediaGridClickListener {
     private var mImageResize = 0
     private var mPlaceholder: Drawable? = null
     private var mSelectionSpec: SelectionSpec = SelectionSpec.getInstance()
@@ -86,7 +86,7 @@ class AlbumMediaAdapter (context: Context, private val selectedCollection: Selec
                         holder)
                 )
                 holder.mMediaGrid.bindMedia(item)
-                holder.mMediaGrid.setOnMediaGridClickListener(this)
+                holder.mMediaGrid.mListener = this
                 setCheckStatus(item, holder.mMediaGrid)
             }
         }

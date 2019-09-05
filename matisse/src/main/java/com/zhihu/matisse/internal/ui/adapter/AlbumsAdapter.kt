@@ -21,7 +21,7 @@ import java.io.File
  * @author peyo
  * @date 9/5/2019
  */
-class AlbumsAdapterKt : CursorAdapter {
+class AlbumsAdapter : CursorAdapter {
     var mPlaceholder: Drawable
     lateinit var view: View
 
