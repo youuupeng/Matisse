@@ -2,6 +2,6 @@
 
 ## What i forked for:
 
-+ Kotlin refactor 
++ （√）Kotlin refactor 
 + Replace the deprected LoaderManager with ViewModel
 + Dart refactor
