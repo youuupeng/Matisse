@@ -36,7 +36,7 @@ class SelectionCreator constructor(private val matisse: Matisse, mimeTypes: Set<
         }
     }
 
-    enum class ScreenOrientation(value: Int) {
+    enum class ScreenOrientation(val value: Int) {
         SCREEN_ORIENTATION_UNSPECIFIED(-1),
         SCREEN_ORIENTATION_LANDSCAPE(0),
         SCREEN_ORIENTATION_PORTRAIT(1),
@@ -52,7 +52,7 @@ class SelectionCreator constructor(private val matisse: Matisse, mimeTypes: Set<
         SCREEN_ORIENTATION_USER_LANDSCAPE(11),
         SCREEN_ORIENTATION_USER_PORTRAIT(12),
         SCREEN_ORIENTATION_FULL_USER(13),
-        SCREEN_ORIENTATION_LOCKED(14)
+        SCREEN_ORIENTATION_LOCKED(14);
     }
 
     /**
@@ -206,7 +206,7 @@ class SelectionCreator constructor(private val matisse: Matisse, mimeTypes: Set<
      * @see Activity#setRequestedOrientation(int)
      */
     fun restrictOrientation(orientation: ScreenOrientation): SelectionCreator {
-        mSelectionSpec.orientation = orientation.ordinal
+        mSelectionSpec.orientation = orientation.value
         return this
     }
 
