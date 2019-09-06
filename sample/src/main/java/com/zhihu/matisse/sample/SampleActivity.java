@@ -17,7 +17,6 @@ package com.zhihu.matisse.sample;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.SelectionCreator;
 import com.zhihu.matisse.engine.impl.PicassoEngine;
 import com.zhihu.matisse.filter.FilterKt;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
@@ -94,7 +94,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                             .addFilter(new GifSizeFilter(320, 320, 5 * FilterKt.K * FilterKt.K))
                                             .gridExpectedSize(
                                                     getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
-                                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                                            .restrictOrientation(SelectionCreator.ScreenOrientation.SCREEN_ORIENTATION_PORTRAIT)
                                             .thumbnailScale(0.85f)
 //                                            .imageEngine(new GlideEngine())  // for glide-V3
                                             .imageEngine(new Glide4Engine())    // for glide-V4
@@ -143,7 +143,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                             .addFilter(new GifSizeFilter(320, 320, 5 * FilterKt.K * FilterKt.K))
                                             .gridExpectedSize(
                                                     getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
-                                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                                            .restrictOrientation(SelectionCreator.ScreenOrientation.SCREEN_ORIENTATION_PORTRAIT)
                                             .thumbnailScale(0.85f)
 //                                            .imageEngine(new GlideEngine())  // for glide-V3
                                             .imageEngine(new Glide4Engine())    // for glide-V4
