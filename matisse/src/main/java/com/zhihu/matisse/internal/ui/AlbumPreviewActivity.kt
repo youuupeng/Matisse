@@ -23,7 +23,7 @@ const val EXTRA_ITEM = "extra_item"
 
 class AlbumPreviewActivity : BasePreviewActivity(), AlbumMediaCollection.AlbumMediaCallbacks {
 
-    private lateinit var mCollection: AlbumMediaCollection
+    private var mCollection: AlbumMediaCollection = AlbumMediaCollection()
     private var mIsAlreadySetPosition = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
