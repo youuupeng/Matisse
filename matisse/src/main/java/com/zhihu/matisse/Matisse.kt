@@ -4,8 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.Fragment
-import com.zhihu.matisse.ui.MatisseActivity
-import com.zhihu.matisse.ui.MatisseActivity.EXTRA_RESULT_SELECTION_PATH
+import com.zhihu.matisse.ui.EXTRA_RESULT_ORIGINAL_ENABLE
+import com.zhihu.matisse.ui.EXTRA_RESULT_SELECTION
+import com.zhihu.matisse.ui.EXTRA_RESULT_SELECTION_PATH
 import java.lang.ref.WeakReference
 
 /**
@@ -58,7 +59,7 @@ class Matisse {
          *             {@link Fragment#onActivityResult(int, int, Intent)}.
          * @return User selected media' {@link Uri} list.
          */
-        fun obtainResult(data: Intent): List<Uri> = data.getParcelableArrayListExtra(MatisseActivity.EXTRA_RESULT_SELECTION)
+        fun obtainResult(data: Intent): List<Uri> = data.getParcelableArrayListExtra(EXTRA_RESULT_SELECTION)
 
         /**
          * Obtain user selected media path list in the starting Activity or Fragment.
@@ -76,7 +77,7 @@ class Matisse {
          * [Fragment.onActivityResult].
          * @return Whether use original photo
          */
-        fun obtainOriginalState(data: Intent) = data.getBooleanExtra(MatisseActivity.EXTRA_RESULT_ORIGINAL_ENABLE, false)
+        fun obtainOriginalState(data: Intent) = data.getBooleanExtra(EXTRA_RESULT_ORIGINAL_ENABLE, false)
     }
 
     /**
