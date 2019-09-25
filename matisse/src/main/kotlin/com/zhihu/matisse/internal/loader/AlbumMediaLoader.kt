@@ -167,7 +167,6 @@ class AlbumMediaLoader(context: Context, selection: String?, selectionArgs: Arra
 
     override fun loadInBackground(): Cursor? {
         val result = super.loadInBackground()
-        //kotlin why is -Kt?
         if (!capture || !hasCameraFeature(context)) {
             return result
         }
